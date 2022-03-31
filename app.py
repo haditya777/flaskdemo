@@ -177,7 +177,7 @@ def userreg(name,id):
     saveuser.save()
     return generateid
         
-@app.route('/issuebook',methods=["POST"])
+@app.route('/issuebook',methods=["GET"])
 def issuebook():
     args =request.args
     bookname=args['bookname']
@@ -213,7 +213,7 @@ def issuebook():
 
 
 
-@app.route('/returnbook',methods=['POST'])
+@app.route('/returnbook',methods=['GET'])
 def returnbook():
     try:
         args =request.args
