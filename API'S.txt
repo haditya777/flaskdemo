@@ -1,0 +1,9 @@
+https://flaskbookmongo.herokuapp.com//searchbook?bookname='''search book by name range or term or author in it.'''                  #this is the method to find the details of the book if exist.
+https://flaskbookmongo.herokuapp.com//displaybooks                                                                                  #this method will give list of json obj of all books.
+https://flaskbookmongo.herokuapp.com//issuebook?bookname='writebookname'&username='writeusername'                                   #by writing bookname and username book will be issued, and user will be created.
+https://flaskbookmongo.herokuapp.com//returnbook?bookname='writebookname'&username='writeusername'                                  #by writing bookname and username book will call a method of returning and give details of rent.
+https://flaskbookmongo.herokuapp.com//findusersforbook?book='writebookname'                                                          #this method provides total and current users of book.
+https://flaskbookmongo.herokuapp.com//rentgenerated?book='writebookname'                                                             #this method provides rentcalculated by book totaly.
+https://flaskbookmongo.herokuapp.com//userallbook?username='writeusername'                                                           #this method gives all books issued by a person.
+https://flaskbookmongo.herokuapp.com//searchdaterange?fromdate='date in format dd/mm/yy'&enddate='date in format dd/mm/yy'           #this method gives all transactions between the dates.
+https://flaskbookmongo.herokuapp.com/

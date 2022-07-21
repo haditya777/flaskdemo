@@ -1,6 +1,6 @@
 
 from enum import unique
-from flask import Flask, make_response
+from flask import Flask, make_response,render_template
 import pymongo
 from flask_mongoengine import MongoEngine
 from pymongo import MongoClient
@@ -32,6 +32,7 @@ class Books(Document):
                 "authorname":self.authorname,
                 "rentperday": self.rentperday}     
 '''           
+
 app=Flask(__name__)
 database_name="Api"
 DB_URI='mongodb+srv://Aditya:12345@cluster0.sswhd.mongodb.net/Api?retryWrites=true&w=majority'
@@ -55,6 +56,11 @@ class Books(db.Document):
                 "category":self.category,
                 "authorname":self.authorname,
                 "rentperday": self.rentperday}
+        
+        
+@app.route("/")
+def home_view():
+        return render_template('home.html')
             
 @app.route('/searchbook/',methods=['GET'])
 def searchbook():
@@ -70,11 +76,7 @@ def searchbook():
                     listofsearched.append(elem['bookname'])
         else:
             result=re.sub("[.'!#$%&\'()*+,-./:;<=>?@[\\]^ `{|}~]","",name)
-            print(result.lower())
-            
-            
-            print(allbooks)
-            
+                       
             for element in allbooks:
                 print(element)
                 if (result in (element['bookname']).lower()) or (result in (element['category']).lower()) or (result in (element['authorname']).lower()):
@@ -88,7 +90,7 @@ def searchbook():
     except Exception as e:
         return e
         
-'''@app.route('/savebook',methods=['POST'])
+@app.route('/savebook',methods=['POST'])
 def savebooks():
     listofbooks=[
         {"title": "A Tale of Two Cities", "author": "Charles Dickens", "year_written": 1865, "edition": "Classics", "price":  12.7},
@@ -118,12 +120,13 @@ def savebooks():
         bookelem = Books(bookname= elem["title"],bookid='book'+str(testnum),category=elem["edition"],authorname=elem["author"],rentperday= random.randint(150,1000))
         bookelem.save()
     return make_response('success',200)
-'''
+
 
 @app.route('/displaybooks',methods=['GET'])
 def displaybooks():  
     try:  
-        take=Books.objects()   
+        take=Books.objects()  
+        print(take) 
         result=take.to_json()
                 
         return make_response(str(result),200)
@@ -335,11 +338,13 @@ def rentgenerated():
         found=False
         totalrent =0
         rentperday=0
+        print(book)
         for elem in bookfind:
             if elem['bookname']==book:
                 found=True
                 bookidtrue=elem['bookid']
                 rentperday=elem['rentperday']
+                print(bookidtrue)
             
         if found==False:
             return make_response('No record Found',200)
